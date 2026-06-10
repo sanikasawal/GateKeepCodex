@@ -1,0 +1,48 @@
+{
+  "resources": [
+    {
+      "id": "aws-prod-db",
+      "name": "AWS Production Database",
+      "aliases": ["aws database", "prod db", "production database", "rds"],
+      "owner": { "name": "Marcus", "slack": "@marcus", "phone": "+1XXXXXXXXXX" },
+      "backup_owner": { "name": "Lena", "slack": "@lena", "phone": "+1XXXXXXXXXX" },
+      "policy": "owner-approval",
+      "default_grant": { "scope": "read-only (SELECT)", "duration_days": 7 },
+      "risk": "high"
+    },
+    {
+      "id": "github-monorepo",
+      "name": "GitHub Monorepo",
+      "aliases": ["github", "repo", "monorepo", "codebase"],
+      "owner": { "name": "Priya", "slack": "@priya", "phone": "+1XXXXXXXXXX" },
+      "backup_owner": { "name": "Lena", "slack": "@lena", "phone": "+1XXXXXXXXXX" },
+      "policy": "owner-approval",
+      "default_grant": { "scope": "write (push to branches, no force-push to main)", "duration_days": 90 },
+      "risk": "medium"
+    },
+    {
+      "id": "vpn",
+      "name": "Corporate VPN",
+      "aliases": ["vpn", "network access"],
+      "owner": { "name": "IT (auto)", "slack": "@it-bot", "phone": null },
+      "backup_owner": null,
+      "policy": "auto-approve",
+      "default_grant": { "scope": "standard profile", "duration_days": 365 },
+      "risk": "low"
+    },
+    {
+      "id": "prod-logs",
+      "name": "Production Logs (Datadog)",
+      "aliases": ["logs", "production logs", "datadog", "observability"],
+      "owner": { "name": "Marcus", "slack": "@marcus", "phone": "+1XXXXXXXXXX" },
+      "backup_owner": { "name": "Priya", "slack": "@priya", "phone": "+1XXXXXXXXXX" },
+      "policy": "owner-approval",
+      "default_grant": { "scope": "read-only, billing-service logs", "duration_days": 14 },
+      "risk": "medium"
+    }
+  ],
+  "auto_approve_rules": {
+    "description": "Requests at or below default_grant scope on low/medium-risk resources with a ticket reference are auto-approved",
+    "max_risk": "low"
+  }
+}
